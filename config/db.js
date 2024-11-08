@@ -4,12 +4,16 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const connectDB = async () => {
+  const dbURI =
+    process.env.REMOTE === "true" ? process.env.DBREMOTE : process.env.DBLOCAL;
+
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("Conexão com MongoDB estabelecida");
+    await mongoose.connect(dbURI, {});
+    console.log(
+      `Conexão com MongoDB ${
+        process.env.REMOTE === "true" ? "remoto" : "local"
+      } estabelecida!`
+    );
   } catch (error) {
     console.error("Erro na conexão ao MongoDB:", error);
     process.exit(1);
