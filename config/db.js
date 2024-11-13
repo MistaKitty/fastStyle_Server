@@ -10,12 +10,12 @@ const connectDB = async () => {
   try {
     await mongoose.connect(dbURI, {});
     console.log(
-      `Conexão com MongoDB ${
-        process.env.REMOTE === "true" ? "remoto" : "local"
-      } estabelecida!`
+      `MongoDB ${
+        process.env.REMOTE === "true" ? "remote" : "local"
+      } connection established!`
     );
   } catch (error) {
-    console.error("Erro na conexão ao MongoDB:", error);
+    console.error("Error connecting to MongoDB:", error);
     process.exit(1);
   }
 };
