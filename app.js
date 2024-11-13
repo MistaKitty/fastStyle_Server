@@ -11,7 +11,7 @@ connectDB();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Servidor Express está a funcionar!");
+  res.send("Server Express it's working!");
 });
 
 module.exports = app;
