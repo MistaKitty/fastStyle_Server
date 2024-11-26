@@ -7,8 +7,8 @@ const limiter = rateLimit({
 });
 
 const addDelay = (req, res, next) => {
-  const minDelay = 1000;
-  const maxDelay = 2000;
+  const minDelay = 100;
+  const maxDelay = 200;
   const delay =
     Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
   setTimeout(() => next(), delay);
