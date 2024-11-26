@@ -3,12 +3,17 @@ const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000,
   max: 12,
-  message: "Too many requests, please try again later.",
+  handler: (req, res) => {
+    res.status(429).json({
+      success: false,
+      message: "error.tooManyRequests",
+    });
+  },
 });
 
 const addDelay = (req, res, next) => {
-  const minDelay = 100;
-  const maxDelay = 200;
+  const minDelay = 1000;
+  const maxDelay = 3000;
   const delay =
     Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
   setTimeout(() => next(), delay);
