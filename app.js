@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
-const { limiter, addDelay } = require("./middlware/middleware");
+const { limiter, addDelay, hourLimiter } = require("./middlware/middleware");
 
 dotenv.config();
 
@@ -29,7 +29,7 @@ app.use(
 
 app.use(express.json());
 
-app.use("/api/users", addDelay, limiter, userRoutes);
+app.use("/api/users", addDelay, limiter, hourLimiter, userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server Express is working!");

@@ -11,6 +11,17 @@ const limiter = rateLimit({
   },
 });
 
+const HourLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 50,
+  handler: (req, res) => {
+    res.status(429).json({
+      success: false,
+      message: "error.tooManyRequestsHour",
+    });
+  },
+});
+
 const addDelay = (req, res, next) => {
   const minDelay = 1000;
   const maxDelay = 3000;
@@ -19,4 +30,4 @@ const addDelay = (req, res, next) => {
   setTimeout(() => next(), delay);
 };
 
-module.exports = { limiter, addDelay };
+module.exports = { limiter, addDelay, hourLimiter };
