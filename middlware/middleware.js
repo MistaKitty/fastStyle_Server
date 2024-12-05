@@ -11,7 +11,7 @@ const limiter = rateLimit({
   },
 });
 
-const HourLimiter = rateLimit({
+const hourLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 50,
   handler: (req, res) => {
