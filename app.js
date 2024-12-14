@@ -3,7 +3,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
-const { limiter, addDelay, hourLimiter } = require("./middlware/middleware");
+const { limiter, addDelay, hourLimiter } = require("./middleware/middleware");
+const validateReCaptchaToken = require("./middleware/reCaptchaValidator");
 
 dotenv.config();
 
@@ -28,6 +29,16 @@ app.use(
 );
 
 app.use(express.json());
+
+app.post("/api/validate-recaptcha", async (req, res) => {
+  const { token, action } = req.body;
+  try {
+    const result = await validateReCaptchaToken(token, action);
+    res.json(result);
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+});
 
 app.use("/api/users", addDelay, limiter, hourLimiter, userRoutes);
 
