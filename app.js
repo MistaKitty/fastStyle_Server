@@ -33,7 +33,7 @@ app.use(express.json());
 app.post("/api/validate-recaptcha", async (req, res) => {
   const { token, action } = req.body;
   try {
-    const result = await validateReCaptchaToken(token, action);
+    const result = await validateReCaptchaToken(token, action, req);
     res.json(result);
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
