@@ -7,6 +7,7 @@ const {
 const router = express.Router();
 
 router.post("/register", createUser);
+
 router.post("/validate-email", validateEmailRoute);
 
 module.exports = router;

@@ -1,5 +1,4 @@
 const cors = require("cors");
-const { limiter, addDelay, hourLimiter } = require("./middleware");
 
 const corsOptions = {
   origin: (origin, callback) => {
@@ -14,8 +13,8 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-const applyMiddleware = (app) => {
+const applyCors = (app) => {
   app.use(cors(corsOptions));
 };
 
-module.exports = applyMiddleware;
+module.exports = applyCors;

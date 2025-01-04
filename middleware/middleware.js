@@ -60,6 +60,8 @@ const validateReCaptchaToken = async (token, expectedAction, req) => {
       throw new Error("reCAPTCHA score too low.");
     }
 
+    req.recaptchaScore = score;
+
     console.log("reCAPTCHA validation succeeded:", { success, action, score });
 
     return { success: true, message: "reCAPTCHA validation successful." };
