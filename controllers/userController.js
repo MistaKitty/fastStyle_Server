@@ -41,17 +41,22 @@ const createUser = async (req, res) => {
 const validateEmailRoute = async (req, res) => {
   const { email } = req.body;
 
-  if (!email) {
-    return res.status(400).json({ message: "error.emailRequired" });
+  try {
+    if (!email) {
+      return res.status(400).json({ message: "error.emailRequired" });
+    }
+
+    const { isValid, message } = await validateEmail(email);
+
+    if (!isValid) {
+      return res.status(400).json({ message });
+    }
+
+    res.status(200).json({ message: "success.emailValid" });
+  } catch (error) {
+    console.error("Erro na rota /validate-email:", error.message);
+    return res.status(500).json({ message: "error.serverError" });
   }
-
-  const { isValid, message } = await validateEmail(email);
-
-  if (!isValid) {
-    return res.status(400).json({ message });
-  }
-
-  res.status(200).json({ message: "success.emailValid" });
 };
 
 module.exports = { createUser, validateEmail, validateEmailRoute };

@@ -7,7 +7,6 @@ const validateReCaptcha = async (req, res) => {
     const result = await validateReCaptchaToken(token, action, req);
     res.json({
       success: true,
-      message: "reCAPTCHA validation successfull.",
       data: result,
     });
   } catch (error) {
